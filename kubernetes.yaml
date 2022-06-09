@@ -43,8 +43,8 @@ spec:
         volumeMounts:
           - name: mysql
             mountPath: /tmp/mysql
-          - name: mysql_config
-            mountPath: /tmp/mysql_config
+          - name: mysql-config
+            mountPath: /tmp/mysql-config
       volumes:
       - name: mysql
         emptyDir: {}
