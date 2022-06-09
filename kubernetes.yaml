@@ -29,12 +29,27 @@ spec:
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: secret
+        volumeMounts:
+          - name: mysql
+            mountPath: /var/lib/mysql
+          - name: mysql_config
+            mountPath: /etc/mysql
       - name: centos
         image: centos:7
         command:
           - "bin/bash"
           - "-c"
           - "sleep 10000"
+        volumeMounts:
+          - name: mysql
+            mountPath: /tmp/mysql
+          - name: mysql_config
+            mountPath: /tmp/mysql_config
+      volumes:
+      - name: mysql
+        emptyDir: {}
+      - name: mysql_config
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
