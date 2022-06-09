@@ -47,9 +47,11 @@ spec:
             mountPath: /tmp/mysql-config
       volumes:
       - name: mysql
-        emptyDir: {}
+        hostPath:
+          path: /tmp/mysql
       - name: mysql-config
-        emptyDir: {}
+        hostPath:
+          path: /tmp/mysql-config
 ---
 apiVersion: v1
 kind: Service
