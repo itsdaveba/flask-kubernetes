@@ -2,20 +2,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp-deploy
+  name: flask-deploy
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: myapp
+      app: flask
   template:
     metadata:
       labels:
-        app: myapp
+        app: flask
     spec:
       containers:
-      - name: myapp
-        image: docker.io/itsdaveba/python-docker:latest
+      - name: flask
+        image: docker.io/itsdaveba/flask-app:latest
         env:
         - name: MYSQL_HOST
           value: localhost
@@ -60,14 +60,16 @@ spec:
           - "-c"
           - "sleep 10000"
 ---
+# Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: myapp-service
+  name: flask-service
 spec:
+  type: NodePort
+  selector:
+    app: flask
   ports:
     - port: 5000
       targetPort: 5000
-  selector:
-    app: myapp
-  type: NodePort
+      nodePort: 30080
