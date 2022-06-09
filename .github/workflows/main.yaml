@@ -19,11 +19,8 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Install requirements
-        run: make install
-      - name: Lint with Pylint and Hadolint
-        run: make lint
-      - name: Test with Pytest
-        run: make test
-      - name: Format with Black
-        run: make format
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/python-docker:latest
