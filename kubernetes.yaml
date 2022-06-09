@@ -19,20 +19,20 @@ spec:
         - containerPort: 5000
         env:
         - name: MYSQL_HOST
-          value: "mysqldb"
+          value: localhost
         - name: MYSQL_USER
-          value: "root"
+          value: root
         - name: MYSQL_PASSWORD
-          value: "secret"
+          value: secret
         - name: MYSQL_DB
-          value: "inventory"
+          value: inventory
       - name: mysqldb
         image: mysql:5.7
         ports:
         - containerPort: 3306
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: "secret"
+          value: secret
       - name: centos
         image: centos:7
         command:
