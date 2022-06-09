@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: myapp-deploy
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: myapp
@@ -14,9 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: itsdaveba/python-docker:latest
-        ports:
-        - containerPort: 5000
+        image: docker.io/itsdaveba/python-docker:latest
         env:
         - name: MYSQL_HOST
           value: localhost
@@ -27,9 +25,7 @@ spec:
         - name: MYSQL_DB
           value: inventory
       - name: mysqldb
-        image: mysql:5.7
-        ports:
-        - containerPort: 3306
+        image: docker.io/mysql:5.7
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: secret
@@ -39,3 +35,14 @@ spec:
           - "bin/bash"
           - "-c"
           - "sleep 10000"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 5000
+  selector:
+    app: myapp
