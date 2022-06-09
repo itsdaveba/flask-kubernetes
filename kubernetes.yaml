@@ -1,3 +1,4 @@
+# App deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,34 +25,40 @@ spec:
           value: secret
         - name: MYSQL_DB
           value: inventory
-      - name: mysqldb
-        image: docker.io/mysql:5.7
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          value: secret
-        volumeMounts:
-          - name: mysql
-            mountPath: /var/lib/mysql
-          - name: mysql-config
-            mountPath: /etc/mysql
       - name: centos
         image: centos:7
         command:
           - "bin/bash"
           - "-c"
           - "sleep 10000"
-        volumeMounts:
-          - name: mysql
-            mountPath: /tmp/mysql
-          - name: mysql-config
-            mountPath: /tmp/mysql-config
-      volumes:
-      - name: mysql
-        hostPath:
-          path: /tmp/mysql
-      - name: mysql-config
-        hostPath:
-          path: /tmp/mysql-config
+---
+# Database deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldb-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      db: mysql
+  template:
+    metadata:
+      labels:
+        db: mysql
+    spec:
+      containers:
+      - name: mysqldb
+        image: docker.io/mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: secret
+      - name: centos
+        image: centos:7
+        command:
+          - "bin/bash"
+          - "-c"
+          - "sleep 10000"
 ---
 apiVersion: v1
 kind: Service
@@ -63,4 +70,4 @@ spec:
       targetPort: 5000
   selector:
     app: myapp
-  type: LoadBalancer
+  type: NodePort
