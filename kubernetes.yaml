@@ -15,9 +15,8 @@ spec:
       containers:
       - name: myapp
         image: itsdaveba/python-docker:latest
-      - name: c2
-        image: centos:7
-        command:
-          - "bin/bash"
-          - "-c"
-          - "sleep 10000"
+      - name: mysqldb
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: secret
