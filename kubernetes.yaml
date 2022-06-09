@@ -32,7 +32,7 @@ spec:
         volumeMounts:
           - name: mysql
             mountPath: /var/lib/mysql
-          - name: mysql_config
+          - name: mysql-config
             mountPath: /etc/mysql
       - name: centos
         image: centos:7
@@ -48,7 +48,7 @@ spec:
       volumes:
       - name: mysql
         emptyDir: {}
-      - name: mysql_config
+      - name: mysql-config
         emptyDir: {}
 ---
 apiVersion: v1
