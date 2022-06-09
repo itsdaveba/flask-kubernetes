@@ -51,3 +51,14 @@ spec:
       - name: mysql-config
         emptyDir: {}
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    app: myapp
+  type: LoadBalancer
