@@ -6,17 +6,19 @@ services:
       context: .
     ports:
       - 5000:5000
-    volumes:
-      - ./:/app
     environment:
       FLASK_ENV: development
       MYSQL_HOST: mysqldb
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: inventory
+    volumes:
+      - ./:/app
 
   mysqldb:
     image: mysql:5.7
+    ports:
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: secret
     volumes:
