@@ -41,7 +41,7 @@ spec:
   ports:
     - port: 5000
       targetPort: 5000
-      nodePort: 35000
+      nodePort: 30080
 
 ---
 # Database deployment
@@ -88,7 +88,7 @@ spec:
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: 33306
+      nodePort: 30006
 
 ---
 # Database persistent volume
