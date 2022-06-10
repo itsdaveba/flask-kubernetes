@@ -89,7 +89,7 @@ spec:
       targetPort: 3306
 
 ---
-# Persistent volume
+# Database persistent volume
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -97,14 +97,14 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 2Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   hostPath:
     path: /mnt/mysql
 
 ---
-# Persistent volume claim
+# Database persistent volume claim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
