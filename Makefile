@@ -16,7 +16,7 @@ ${VENV}/bin/activate: requirements-dev.txt
 install: ${VENV}/bin/activate
 
 run: install
-	${PYTHON} ${APP}.py
+	${PYTHON} -m flask run --host 0.0.0.0 --reload
 
 lint: install
 	docker run --rm -i hadolint/hadolint < ${DOCKERFILE}

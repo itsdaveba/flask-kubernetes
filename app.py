@@ -61,7 +61,3 @@ def db_init():
     cursor.close()
 
     return "init database"
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
