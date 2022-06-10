@@ -18,7 +18,7 @@ spec:
         image: docker.io/itsdaveba/flask-app:latest
         env:
         - name: MYSQL_HOST
-          value: localhost
+          value: mysql-service
         - name: MYSQL_USER
           value: root
         - name: MYSQL_PASSWORD
@@ -36,7 +36,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mysqldb-deploy
+  name: mysql-deploy
 spec:
   replicas: 1
   selector:
@@ -48,7 +48,7 @@ spec:
         db: mysql
     spec:
       containers:
-      - name: mysqldb
+      - name: mysql
         image: docker.io/mysql:5.7
         env:
         - name: MYSQL_ROOT_PASSWORD
@@ -60,7 +60,7 @@ spec:
           - "-c"
           - "sleep 10000"
 ---
-# Service
+# App service
 apiVersion: v1
 kind: Service
 metadata:
@@ -73,3 +73,15 @@ spec:
     - port: 5000
       targetPort: 5000
       nodePort: 30080
+---
+# Database service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  selector:
+    db: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
