@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: flask-deploy
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: flask
@@ -41,7 +41,7 @@ spec:
   ports:
     - port: 5000
       targetPort: 5000
-      nodePort: 30080
+      nodePort: 35000
 
 ---
 # Database deployment
@@ -82,11 +82,13 @@ kind: Service
 metadata:
   name: mysql-service
 spec:
+  type: NodePort
   selector:
     db: mysql
   ports:
     - port: 3306
       targetPort: 3306
+      nodePort: 33306
 
 ---
 # Database persistent volume

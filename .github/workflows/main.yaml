@@ -2,10 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: main
   pull_request:
-    branches: [ "main" ]
+    branches: main
   workflow_dispatch:
+
+env:
+  DOCKERFILE: Dockerfile
+  IMAGE_NAME: flask-app
 
 jobs:
   build:
@@ -31,8 +35,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./Dockerfile
+          file: ./${DOCKERFILE}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
