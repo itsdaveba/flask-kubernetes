@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    return os.environ["HOSTNAME"]
+    return "Hello World!"
 
 
 @app.route("/widgets")
