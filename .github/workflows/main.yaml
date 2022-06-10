@@ -37,6 +37,6 @@ jobs:
           context: ./
           file: ./${{ env.DOCKERFILE }}
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APP_NAME }}:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
